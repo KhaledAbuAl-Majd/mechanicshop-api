@@ -54,7 +54,7 @@ jobs:
 
     env:
       REGISTRY: ghcr.io
-      IMAGE_NAME: ${{github.repository_owner}}/mechanicshop
+      IMAGE_NAME: khaledabual-majd/mechanicshop
 
     steps:
       - name: Checkout Repository
@@ -101,7 +101,7 @@ jobs:
       CONTAINER_NAME: aca-mechanicshop-api
       RESOURCE_GROUP: rg-mechanicshop-prod
       REGISTRY: ghcr.io
-      IMAGE_URL: ghcr.io/${{github.repository_owner}}/mechanicshop:${{github.sha}}
+      IMAGE_URL: ghcr.io/khaledabual-majd/mechanicshop:${{github.sha}}
 
     steps:
       - name: Azure Login
