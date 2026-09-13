@@ -1,6 +1,24 @@
 <Solution>
-  <Project Path="src/MechanicShop.Api/MechanicShop.Api.csproj" Id="e2466b72-f49a-457b-92f8-34b76fdb542e" />
-  <Project Path="src/MechanicShop.Application/MechanicShop.Application.csproj" Id="9df41dd5-cabb-4cba-b433-6fe5812d500d" />
-  <Project Path="src/MechanicShop.Domain/MechanicShop.Domain.csproj" Id="af328a41-c860-46f5-b20c-5e67c0c0161f" />
-  <Project Path="src/MechanicShop.Infrastructure/MechanicShop.Infrastructure.csproj" Id="c57faf14-ca1c-44e8-a8d0-c52ff2871803" />
+  <Folder Name="/Solution Items/">
+    <File Path=".dockerignore" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="Dockerfile" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/MechanicShop.Api/MechanicShop.Api.csproj" Id="e2466b72-f49a-457b-92f8-34b76fdb542e" />
+    <Project Path="src/MechanicShop.Application/MechanicShop.Application.csproj" Id="9df41dd5-cabb-4cba-b433-6fe5812d500d" />
+    <Project Path="src/MechanicShop.Domain/MechanicShop.Domain.csproj" Id="af328a41-c860-46f5-b20c-5e67c0c0161f" />
+    <Project Path="src/MechanicShop.Infrastructure/MechanicShop.Infrastructure.csproj" Id="c57faf14-ca1c-44e8-a8d0-c52ff2871803" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/MechanicShop.Api.IntegrationTests/MechanicShop.Api.IntegrationTests.csproj" Id="1fb7748c-479c-4d4f-8630-258b56344bcb" />
+    <Project Path="tests/MechanicShop.Application.SubcutaneousTests/MechanicShop.Application.SubcutaneousTests.csproj" Id="2e6c91c4-1479-47c3-a134-68db43d360d7" />
+    <Project Path="tests/MechanicShop.Application.UnitTests/MechanicShop.Application.UnitTests.csproj" Id="6ab27316-cde3-462e-9806-f62259f3687d" />
+    <Project Path="tests/MechanicShop.Domain.UnitTests/MechanicShop.Domain.UnitTests.csproj" Id="aaeb6ccf-01aa-4b4a-bca3-f70ea7bd863d" />
+    <Project Path="tests/MechanicShop.Tests.Common/MechanicShop.Tests.Common.csproj" Id="ab48f39f-3cbc-4874-be87-0e598db5276a" />
+  </Folder>
+  <Project Path="docker-compose.dcproj">
+    <Build />
+  </Project>
 </Solution>

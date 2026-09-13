@@ -1,0 +1,102 @@
+services:
+  mechanicshop.api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: final
+    ports:
+      - "7155:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      EnableApiDocs: true
+      EnableDataSeeding: true
+      ConnectionStrings__DefaultConnection: Server=sql-server,1433;Database=MechanicShopDb;User=sa;Password=Strong@Password123;TrustServerCertificate=True;MultipleActiveResultSets=true
+      ConnectionStrings__Redis: redis:6379,password=StrongRedisPassword123
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://seq:5341/ingest/otlp/v1/traces
+      OTEL_EXPORTER_OTLP_PROTOCOL: http/protobuf
+    depends_on:
+      - sql-server
+      - redis
+      - seq
+    networks:
+      - mechanic-net
+    restart: on-failure
+
+  sql-server:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    user: root
+    environment:
+      ACCEPT_EULA: Y
+      MSSQL_SA_PASSWORD: Strong@Password123
+      MSSQL_PID: Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql-server-data:/var/opt/mssql/data
+    networks:
+      - mechanic-net
+    restart: always
+
+  redis:
+    image: redis:7.4-alpine
+    command: redis-server --requirepass StrongRedisPassword123
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - mechanic-net
+    restart: unless-stopped
+
+  seq:
+    image: datalust/seq:latest
+    environment:
+      ACCEPT_EULA: Y
+      SEQ_FIRSTRUN_ADMINPASSWORD: YourVeryStrongPassword
+    volumes:
+      - seq-data:/data
+    ports:
+      - "5341:5341"
+      - "8081:80"
+    restart: unless-stopped
+    networks:
+      - mechanic-net
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - prometheus-data:/prometheus
+      - ./containers/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - mechanic-net
+    depends_on:
+      - mechanicshop.api
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: StrongPassword
+    volumes:
+      - grafana-data:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    networks:
+      - mechanic-net
+    restart: unless-stopped
+
+networks:
+  mechanic-net:
+    driver: bridge
+
+volumes:
+  sql-server-data:
+  redis_data:
+  seq-data:
+  prometheus-data:
+  grafana-data:

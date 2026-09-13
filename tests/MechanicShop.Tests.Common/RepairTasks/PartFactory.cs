@@ -1,0 +1,21 @@
+﻿using MechanicShop.Domain.Common.Results;
+using MechanicShop.Domain.RepairTasks.Parts;
+
+namespace MechanicShop.Tests.Common.RepairTasks
+{
+    public static class PartFactory
+    {
+        public static Result<Part> CreatePart(
+            Guid? id = null,
+            string? name = "Oil filter",
+            decimal? cost = null,
+            int? quantity = null)
+        {
+            return Part.Create(
+                id ?? Guid.NewGuid(),
+                name!,
+                cost ?? 100,
+                quantity ?? 3);
+        }
+    }
+}
